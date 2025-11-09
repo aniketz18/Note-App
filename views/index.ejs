@@ -7,16 +7,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <div class="main w-full flex flex-col justify-center min-h-screen bg-zinc-900">
+    <div
+      class="main w-full flex flex-col justify-center min-h-screen bg-zinc-900"
+    >
       <div class="form p-10 text-white">
-         <h1 class="w-full text-center text-blue-500 py-3 text-Montserrat text-4xl">YOUR NOTE </h1>
-        <form action="/create" method="post" >
-          <input name="title"
+        <h1
+          class="w-full text-center text-blue-500 py-3 text-Montserrat text-4xl"
+        >
+          YOUR NOTE
+        </h1>
+        <!--  form to add and create a new task -->
+        <form action="/create" method="post">
+          <input
+            name="title"
             class="block outline-none text-white rounded-md w-full px-5 py-2 bg-zinc-800"
             type="text"
             placeholder="title goes here"
           />
-          <textarea name="info"
+          <textarea
+            name="info"
             class="block outline-none text-white rounded-md w-full mt-2 px-5 py-2 bg-zinc-800 resize-none"
             placeholder="Write here details"
           ></textarea>
@@ -26,17 +35,33 @@
             value="Create Task"
           />
         </form>
+        <!--  form end here -->
       </div>
-      <div class="tasks flex gap-3 flex-wrap md:m-10 flex justify-center text-center">
+      <div
+        class="tasks flex gap-3 flex-wrap md:m-10 flex justify-center text-center"
+      >
         <!--  tasks here -->
-          <% if(files.length > 0){ %>
-          <% files.forEach(function(value){%>
-        <div class="task  min-w-72 px-3 py-4 bg-zinc-800 rounded-md">
-          <h1 class="text-white text-3xl tracking-tighter">
-         <%= value%>
-          </h1>
-          <a value href="/files/<%=value%>" class="text-blue-500 inline-block mt-3">Read More.</a>
+        <% if(files.length > 0){ %> <% files.forEach(function(value){%>
+        <div class="task min-w-72 px-3 py-4 bg-zinc-800 rounded-md">
+          <h1 class="text-white text-3xl tracking-tighter"><%= value%></h1>
+
+          <a
+            value
+            href="/files/<%=value%>"
+            class="text-blue-500 inline-block mt-3"
+            >Read More.</a
+          >
+
+          <!--  to delete the task -->
+          <a
+            href="/delete/<%= value %>"
+            onclick="return confirm('Are you sure you want to delete this note?')"
+            class="cursor-pointer text-red-500 border-red-400 px-2 py-0.4 mt-3 inline-block"
+          >
+            Delete
+          </a>
         </div>
+        <!--  when no task is added -->
         <% })} else { %>
         <h3 class="text-zinc-800">No Tasks Yet.</h3>
         <% }%>

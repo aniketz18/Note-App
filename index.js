@@ -31,6 +31,7 @@ app.get("/files/:filename", (req, res) => {
   );
 });
 
+// create the task
 app.post("/create", (req, res) => {
   const fileName = req.body.title.split(" ").join("") + ".txt";
   const filePath = `./files/${fileName}`;
@@ -40,6 +41,22 @@ app.post("/create", (req, res) => {
   });
 });
 
+// route to delete the task
+
+app.get("/delete/:filename", (req, res) => {
+  const fs = require("fs");
+  const file = req.params.filename;
+
+  fs.unlink(`files/${file}`, (err) => {
+    if (err) {
+      console.log(err);
+      return res.send("Error deleting file");
+    }
+    res.redirect("/");
+  });
+});
+
+// app running on port
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
